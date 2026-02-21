@@ -20,10 +20,10 @@ def health():
     }
 
     try:
-        with psycopg.connect(DATABASE_URL) as conn:
-            with conn.cursor() as cur:
-                cur.execute("SELECT 1;")
-                cur.fetchone()
+     with psycopg.connect(DATABASE_URL, prepare_threshold=None) as conn:
+    with conn.cursor() as cur:
+        cur.execute("SELECT 1;")
+        cur.fetchone()
         return {"status": "ok", "database": "connected", "config": safe}
     except Exception as e:
         return {"status": "error", "detail": str(e), "config": safe}
