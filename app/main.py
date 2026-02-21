@@ -21,3 +21,7 @@ def health():
     except Exception as e:
         # Nunca 500: devolvemos el error como texto
         return {"status": "diagnostic_error", "detail": str(e)}
+
+@app.get("/debug/db")
+def debug_db():
+    return {"DATABASE_URL_raw": DATABASE_URL}
