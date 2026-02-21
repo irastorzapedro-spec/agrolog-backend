@@ -18,11 +18,4 @@ def health():
         "db_name": (parsed.path or "").lstrip("/") if parsed else None,
     }
 
-    try:
-        with psycopg.connect(DATABASE_URL) as conn:
-            with conn.cursor() as cur:
-                cur.execute("SELECT 1;")
-                cur.fetchone()
-        return {"status": "ok", "database": "connected", "config": safe}
-    except Exception as e:
-        return {"status": "error", "detail": str(e), "config": safe}
+    return {"status": "diagnostic", "config": safe}
